@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Detector</title>
+</head>
+<body>
+    <h1>AI Text Detector</h1>
+    <textarea id="textInput" rows="10" cols="50" placeholder="Enter text here..."></textarea>
+    <br>
+    <button onclick="checkText()">Check Text</button>
+    <p id="result"></p>
+    <script>
+        async function checkText() {
+            const text = document.getElementById('textInput').value;
+            const response = await fetch('/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const data = await response.json();
+            // console.log(data)
+            document.getElementById('result').innerText = `AI-Generated Probability: ${data.percentage}%`;
+        }
+    </script>
+</body>
+</html>
